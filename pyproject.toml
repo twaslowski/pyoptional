@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "python-optional"
+name = "joptional"
 version = "0.1.0"
 description = "Java Optionals for Python"
 authors = ["Tobias Waslowski <tobiaswaslowski@gmail.com>"]
@@ -21,7 +21,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 minversion = "7.4.4"
-addopts = "-v --cov=pyoptional --cov-report=html"
+addopts = "-v --cov=joptional --cov-report=html"
 testpaths = [
     "test",
 ]

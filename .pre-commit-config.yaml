@@ -21,7 +21,7 @@ repos:
       hooks:
         -   id: mypy
             name: mypy
-            entry: bash -c 'poetry run mypy --strict pyoptional'
+            entry: bash -c 'poetry run mypy --strict joptional'
             language: system
             types: [ python ]
             pass_filenames: false

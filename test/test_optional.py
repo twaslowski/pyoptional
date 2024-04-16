@@ -1,6 +1,6 @@
 import pytest
 
-from pyoptional import Optional  # type: ignore
+from joptional import Optional  # type: ignore
 
 
 def test_empty_creation() -> None:
