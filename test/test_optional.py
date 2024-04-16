@@ -94,3 +94,22 @@ def test_if_present_with_side_effect_for_empty_optional():
 
     optional.if_present(side_effect)
     assert some_number == 1
+
+
+def test_filter():
+    optional = Optional.of(1)
+    result = optional.filter(lambda x: x == 1)
+    assert result.is_present() is True
+    assert result == Optional.of(1)
+
+
+def test_filter_for_none():
+    optional = Optional.of(1)
+    result = optional.filter(lambda x: x == 2)
+    assert result == Optional.empty()
+
+
+def test_filter_for_empty_optional():
+    optional = Optional.empty()
+    result = optional.filter(lambda x: x == 1)
+    assert result == Optional.empty()

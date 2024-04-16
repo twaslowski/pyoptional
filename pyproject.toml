@@ -21,7 +21,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
 minversion = "7.4.4"
-addopts = "-s -v --cov=pyoptional --cov-report=html"
+addopts = "-v --cov=pyoptional --cov-report=html"
 testpaths = [
     "test",
 ]
