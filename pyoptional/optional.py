@@ -54,6 +54,7 @@ class Optional(Generic[T]):
         :param callback: A Callback function that takes exactly self.value as a parameter.
         :return:
         """
+        self._require_callback(callback)
         if self.is_present():
             # mypy apparently does not understand that typechecking has been performed beforehand
             callback(self.value)  # type: ignore
@@ -65,17 +66,39 @@ class Optional(Generic[T]):
         :param predicate: filter function.
         :return:
         """
+        self._require_callback(predicate)
         if not self.is_present():
             return Optional.empty()  # type: ignore
         else:
             return self if predicate(self.value) else Optional.empty()  # type: ignore
 
     def map(self, fn: Callable[[T], Any]) -> "Optional[Union[Any, None]]":
+        self._require_callback(fn)
         if not self.is_present():
             return Optional.empty()
         return Optional(fn(self.value))  # type: ignore
 
+    def or_else(self, other: Union[T, None]) -> Union[T, None]:
+        return self.value if self.is_present() else other
 
-if __name__ == "__main__":
-    opt = Optional[str].of_nullable("test")
-    opt.if_present(print)
+    def or_else_get(self, callback: Callable[[], T]) -> T:
+        self._require_callback(callback)
+        return self.value if self.is_present() else callback()  # type: ignore
+
+    def or_else_throw(self, exception: Exception) -> Union[T, None]:
+        if self.is_present():
+            return self.value
+        raise exception
+
+    def flatmap(
+        self, callback: Callable[["Optional[T]"], T]
+    ) -> "Union[Optional[None], T]":
+        self._require_callback(callback)
+        if not self.is_present():
+            return Optional.empty()
+        return callback(self.value)  # type: ignore
+
+    @staticmethod
+    def _require_callback(callback: Callable[..., Any]) -> None:
+        if callback is None:
+            raise ValueError("Callback function may not be None")

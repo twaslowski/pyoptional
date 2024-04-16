@@ -125,3 +125,56 @@ def test_map_for_different_types():
     optional = Optional.of(1)
     result = optional.map(lambda x: str(x))
     assert result == Optional.of("1")
+
+
+def test_or_else_on_empty():
+    optional = Optional[int].empty()
+    assert optional.or_else(1) == 1
+
+
+def test_or_else_on_value():
+    optional = Optional[int].of(1)
+    assert optional.or_else(2) == 1
+
+
+def test_or_else_get_on_empty():
+    optional = Optional[int].empty()
+    assert optional.or_else_get(lambda: 1) == 1
+
+
+def test_or_else_get_on_value():
+    optional = Optional.of(1)
+    assert optional.or_else_get(lambda: 2) == 1
+
+
+def test_or_else_throw_on_empty():
+    optional = Optional[int].empty()
+    with pytest.raises(ValueError) as e:
+        optional.or_else_throw(ValueError("No value present"))
+
+    assert str(e.value) == "No value present"
+
+
+def test_or_else_throw_on_value():
+    optional = Optional.of(1)
+    assert optional.or_else_throw(ValueError("No value present")) == 1
+
+
+def test_require_callback():
+    optional = Optional.of(1)
+    with pytest.raises(ValueError) as e:
+        optional.or_else_get(None)
+
+    assert str(e.value) == "Callback function may not be None"
+
+
+def test_flatmap():
+    optional = Optional.of(1)
+    result = optional.flatmap(lambda x: Optional.of(x + 1))
+    assert result == Optional.of(2)
+
+
+def test_flatmap_for_none():
+    optional = Optional[int].empty()
+    result = optional.flatmap(lambda x: x + 1)
+    assert result == Optional.empty()
