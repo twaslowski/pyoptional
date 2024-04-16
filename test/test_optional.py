@@ -113,3 +113,27 @@ def test_filter_for_empty_optional():
     optional = Optional.empty()
     result = optional.filter(lambda x: x == 1)
     assert result == Optional.empty()
+
+
+def test_map():
+    optional = Optional.of(1)
+    result = optional.map(lambda x: x + 1)
+    assert result == Optional.of(2)
+
+
+def test_map_for_none():
+    optional = Optional.of(1)
+    result = optional.map(lambda x: None)
+    assert result == Optional.empty()
+
+
+def test_map_for_empty_optional():
+    optional = Optional.empty()
+    result = optional.map(lambda x: x + 1)
+    assert result == Optional.empty()
+
+
+def test_map_for_different_types():
+    optional = Optional.of(1)
+    result = optional.map(lambda x: str(x))
+    assert result == Optional.of("1")

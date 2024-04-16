@@ -6,7 +6,7 @@ T = TypeVar("T")
 class Optional(Generic[T]):
     value: Union[T, None]
 
-    def __init__(self, value: Any):
+    def __init__(self, value: T):
         self.value = value
 
     def __eq__(self, other: Any) -> bool:
@@ -69,3 +69,8 @@ class Optional(Generic[T]):
             return Optional.empty()  # type: ignore
         else:
             return self if predicate(self.value) else Optional.empty()  # type: ignore
+
+    def map(self, fn: Callable[[T], Any]) -> "Optional[Union[Any, None]]":
+        if not self.is_present():
+            return Optional.empty()
+        return Optional(fn(self.value))  # type: ignore
