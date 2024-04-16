@@ -58,18 +58,6 @@ def test_equality_for_non_optional():
     assert Optional.of(1) != 1
 
 
-def test_if_present():
-    optional = Optional.of(1)
-    result = optional.if_present(lambda x: x + 1)
-    assert result == 2
-
-
-def test_if_present_for_none_without_side_effects():
-    optional = Optional.empty()
-    result = optional.if_present(lambda x: x + 1)
-    assert result is None
-
-
 def test_if_present_with_side_effects():
     optional = Optional.of(1)
     global some_number

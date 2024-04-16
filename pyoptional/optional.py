@@ -56,7 +56,7 @@ class Optional(Generic[T]):
         """
         if self.is_present():
             # mypy apparently does not understand that typechecking has been performed beforehand
-            return callback(self.value)  # type: ignore
+            callback(self.value)  # type: ignore
 
     def filter(self, predicate: Callable[[T], bool]) -> "Optional[Union[T, None]]":
         """
@@ -74,3 +74,8 @@ class Optional(Generic[T]):
         if not self.is_present():
             return Optional.empty()
         return Optional(fn(self.value))  # type: ignore
+
+
+if __name__ == "__main__":
+    opt = Optional[str].of_nullable("test")
+    opt.if_present(print)
