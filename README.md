@@ -19,9 +19,7 @@ Its functionality is roughly equivalent to Java's `Optional` class. For example:
 
 ```java
 Optional<String> opt = Optional.of("Hello, world!");
-opt.
-
-ifPresent(System.out::println);
+opt.ifPresent(System.out::println);
 ```
 
 turns to the following Python code:
