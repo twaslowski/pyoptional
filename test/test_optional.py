@@ -54,6 +54,10 @@ def test_equality_for_complex_values():
     assert Optional.of(SomeClass()) != Optional.of(SomeClass())
 
 
+def test_equality_for_non_optional():
+    assert Optional.of(1) != 1
+
+
 def test_if_present():
     optional = Optional.of(1)
     result = optional.if_present(lambda x: x + 1)
