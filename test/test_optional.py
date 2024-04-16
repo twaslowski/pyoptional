@@ -51,9 +51,42 @@ def test_equality_for_complex_values():
         def __init__(self):
             self.id = id(self)
 
-    def __eq__(self, other):
-        if isinstance(other, SomeClass):
-            return self.id == other.id
-        return False
-
     assert Optional.of(SomeClass()) != Optional.of(SomeClass())
+
+
+def test_if_present():
+    optional = Optional.of(1)
+    result = optional.if_present(lambda x: x + 1)
+    assert result == 2
+
+
+def test_if_present_for_none_without_side_effects():
+    optional = Optional.empty()
+    result = optional.if_present(lambda x: x + 1)
+    assert result is None
+
+
+def test_if_present_with_side_effects():
+    optional = Optional.of(1)
+    global some_number
+    some_number = 1
+
+    def side_effect(x):
+        global some_number
+        some_number += x
+
+    optional.if_present(side_effect)
+    assert some_number == 2
+
+
+def test_if_present_with_side_effect_for_empty_optional():
+    optional = Optional.empty()
+    global some_number
+    some_number = 1
+
+    def side_effect(x):
+        global some_number
+        some_number += x
+
+    optional.if_present(side_effect)
+    assert some_number == 1
