@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "joptional"
 version = "0.1.0"
-description = "Java Optionals for Python"
+description = "Exact implementation of Java's Optional in Python with 100% test coverage."
 authors = ["Tobias Waslowski <tobiaswaslowski@gmail.com>"]
 license = "MIT"
 readme = "README.md"
