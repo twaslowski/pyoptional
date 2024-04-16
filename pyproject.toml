@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "python-optional"
+version = "0.1.0"
+description = "Java Optionals for Python"
+authors = ["Tobias Waslowski <tobiaswaslowski@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+mypy = "^0.910"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
