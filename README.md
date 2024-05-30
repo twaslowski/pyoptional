@@ -10,7 +10,7 @@ Simply install this package with your favourite package manager:
 
 or
 
-    poetry install pyoptional
+    poetry add pyoptional
 
 ## Usage
 
